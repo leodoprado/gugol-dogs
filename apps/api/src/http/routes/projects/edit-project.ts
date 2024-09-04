@@ -6,12 +6,12 @@ import { z } from 'zod'
 // import { auth } from '../../middlewares/auth'
 const clients: Set<WebSocket> = new Set()
 
-export async function useProject(app: FastifyInstance) {
+export async function editProject(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     // .register(auth)
     .get(
-      '/organizations/:orgSlug/projects/:projectSlug/use',
+      '/organizations/:orgSlug/projects/:projectSlug/edit',
       {
         websocket: true,
         schema: {

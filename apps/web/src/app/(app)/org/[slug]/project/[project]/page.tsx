@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import { editProject } from '@/ws/edit-project'
 
 export default function Projects() {
   const [content, setContent] = useState<string>('')
@@ -14,9 +14,10 @@ export default function Projects() {
   }>()
 
   useEffect(() => {
-    const ws = new WebSocket(
-      `ws://localhost:3333/organizations/${slug}/projects/${project}/use`,
-    )
+    const ws = editProject({
+      orgSlug: slug,
+      projectSlug: project,
+    })
 
     ws.onmessage = (event: MessageEvent) => {
       setContent(event.data)
@@ -29,17 +30,17 @@ export default function Projects() {
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value)
-  }
+    const ws = editProject({
+      orgSlug: slug,
+      projectSlug: project,
+    })
 
-  const submitMessage = () => {
-    const ws = new WebSocket(
-      `ws://localhost:3333/organizations/${slug}/projects/${project}/use`,
-    )
     ws.onopen = () => {
-      ws.send(content)
+      ws.send(event.target.value)
       ws.close()
     }
   }
+
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">{project}</h1>
@@ -49,7 +50,6 @@ export default function Projects() {
         placeholder="Edit document"
         rows={30}
       />
-      <Button onClick={submitMessage}>Enviar</Button>
     </div>
   )
 }
