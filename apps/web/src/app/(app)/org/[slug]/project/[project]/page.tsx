@@ -14,29 +14,36 @@ export default function Projects() {
     project: string
   }>()
 
-  const ws = editProject({
-    orgSlug: slug,
-    projectSlug: project,
-  })
-
   useEffect(() => {
-    ws.onmessage = (event: MessageEvent) => {
+    const ws = editProject({ orgSlug: slug, projectSlug: project })
+
+    const handleMessage = (event: MessageEvent) => {
       setContent(event.data)
     }
 
+    ws.addEventListener('message', handleMessage)
+
     return () => {
+      ws.removeEventListener('message', handleMessage)
       ws.close()
     }
-  }, [])
+  }, [slug, project])
 
-  const submitEdit = (contentd: string) => {
-    ws.send(contentd)
+  const submitEdit = (content: string) => {
+    const ws = editProject({ orgSlug: slug, projectSlug: project })
+
+    ws.addEventListener('open', () => {
+      ws.send(content)
+      ws.close()
+    })
+
+    return () => ws.removeEventListener('open', () => {})
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const content = event.target.value
-    setContent(content)
-    submitEdit(content)
+    const newContent = event.target.value
+    setContent(newContent)
+    submitEdit(newContent)
   }
 
   return (
