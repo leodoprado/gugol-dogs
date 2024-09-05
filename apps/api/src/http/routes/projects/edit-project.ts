@@ -3,8 +3,8 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { WebSocket } from 'ws'
 import { z } from 'zod'
 
-import { getDocument } from '@/redis/get-document'
-import { setDocument } from '@/redis/set-document'
+import { getProject } from '@/cache/projects/get-project'
+import { setProject } from '@/cache/projects/set-project'
 import {
   addClientToProject,
   getClientsByProject,
@@ -36,12 +36,12 @@ export async function editProject(app: FastifyInstance) {
 
         addClientToProject(projectSlug, connection)
 
-        const document = (await getDocument(projectSlug)) || ''
+        const project = (await getProject(projectSlug)) || ''
 
-        connection.send(document)
+        connection.send(project)
 
         connection.on('message', async (message: string) => {
-          await setDocument(projectSlug, message.toString())
+          await setProject(projectSlug, message.toString())
           const clients = getClientsByProject(projectSlug)
           if (!clients) return
           for (const client of clients) {
