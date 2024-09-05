@@ -1,5 +1,5 @@
 'use client'
-import type { Role } from '@saas/auth'
+import type { Role } from '@gugol-dogs/auth'
 import type { ComponentProps } from 'react'
 
 import {

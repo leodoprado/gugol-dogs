@@ -3,7 +3,7 @@ import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import FastifyWebSocket from '@fastify/websocket'
-import { env } from '@saas/env'
+import { env } from '@gugol-dogs/env'
 import fastify from 'fastify'
 import {
   jsonSchemaTransform,

@@ -1,5 +1,5 @@
 {
-  "name": "@saas/eslint-config",
+  "name": "@gugol-dogs/eslint-config",
   "version": "0.0.0",
   "private": true,
   "files": [
@@ -10,9 +10,9 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "eslint-plugin-simple-import-sort": "^12.1.0",
-    "@saas/prettier": "workspace:*"
+    "@gugol-dogs/prettier": "workspace:*"
   },
-  "prettier": "@saas/prettier",
+  "prettier": "@gugol-dogs/prettier",
   "eslintConfig": {
     "extends": ["./library.js"]
   }

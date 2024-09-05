@@ -1,4 +1,4 @@
-import { env } from '@saas/env'
+import { env } from '@gugol-dogs/env'
 import { getCookie } from 'cookies-next'
 import type { CookiesFn } from 'cookies-next/lib/types'
 import ky from 'ky'

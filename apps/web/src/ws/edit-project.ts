@@ -1,4 +1,4 @@
-import { env } from '@saas/env'
+import { env } from '@gugol-dogs/env'
 
 import { getAddressFromUrl } from '@/lib/get-address-from-url'
 

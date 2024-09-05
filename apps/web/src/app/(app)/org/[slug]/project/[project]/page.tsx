@@ -8,6 +8,9 @@ import { editProject } from '@/ws/edit-project'
 
 export default function Projects() {
   const [content, setContent] = useState<string>('')
+
+  const [isTyping, setIsTyping] = useState(false)
+
   const { project, slug } = useParams<{
     slug: string
     project: string
@@ -28,15 +31,29 @@ export default function Projects() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isTyping) return
+
+    const timer = setTimeout(() => {
+      executarFuncao()
+      setIsTyping(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [content])
+
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value)
+    setIsTyping(true)
+  }
+  const executarFuncao = () => {
     const ws = editProject({
       orgSlug: slug,
       projectSlug: project,
     })
 
     ws.onopen = () => {
-      ws.send(event.target.value)
+      ws.send(content)
       ws.close()
     }
   }

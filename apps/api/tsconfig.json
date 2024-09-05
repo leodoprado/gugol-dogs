@@ -1,5 +1,5 @@
 {
-  "extends": "@saas/tsconfig/node.json",
+  "extends": "@gugol-dogs/tsconfig/node.json",
   "include": ["src/**/*", "@types/*.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",

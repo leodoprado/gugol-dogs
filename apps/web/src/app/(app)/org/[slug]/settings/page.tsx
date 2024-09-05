@@ -1,4 +1,4 @@
-import { organizationSchema } from '@saas/auth'
+import { organizationSchema } from '@gugol-dogs/auth'
 
 import { OrganizationForm } from '@/app/(app)/org/organization-form'
 import { ability, getCurrentOrg } from '@/auth/auth'

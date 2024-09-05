@@ -1,4 +1,4 @@
-import type { Role } from '@saas/auth'
+import type { Role } from '@gugol-dogs/auth'
 
 import { api } from './api-client'
 

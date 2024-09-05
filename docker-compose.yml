@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   pg:
@@ -10,11 +10,9 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=next-saas
     restart: always
-  mongodb: 
-    image: bitnami/mongodb:latest
+
+  cache:
+    image: redis
     ports:
-      - '27017:27017'
-    environment:
-      - MONGODB_ROOT_USER=root
-      - MONGODB_ROOT_PASSWORD=example
-      - MONGODB_DATABASE=gugol_dogs
+      - 6379:6379
+    restart: always

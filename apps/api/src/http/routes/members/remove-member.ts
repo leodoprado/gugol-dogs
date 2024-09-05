@@ -1,4 +1,4 @@
-import { userSchema } from '@saas/auth'
+import { userSchema } from '@gugol-dogs/auth'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'

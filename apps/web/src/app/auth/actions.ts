@@ -1,6 +1,6 @@
 'use server'
 
-import { env } from '@saas/env'
+import { env } from '@gugol-dogs/env'
 import { redirect } from 'next/navigation'
 
 export async function signInWithGithub() {
