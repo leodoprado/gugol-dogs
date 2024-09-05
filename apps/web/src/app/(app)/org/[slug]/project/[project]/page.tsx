@@ -9,19 +9,17 @@ import { editProject } from '@/ws/edit-project'
 export default function Projects() {
   const [content, setContent] = useState<string>('')
 
-  const [isTyping, setIsTyping] = useState(false)
-
   const { project, slug } = useParams<{
     slug: string
     project: string
   }>()
 
-  useEffect(() => {
-    const ws = editProject({
-      orgSlug: slug,
-      projectSlug: project,
-    })
+  const ws = editProject({
+    orgSlug: slug,
+    projectSlug: project,
+  })
 
+  useEffect(() => {
     ws.onmessage = (event: MessageEvent) => {
       setContent(event.data)
     }
@@ -31,31 +29,14 @@ export default function Projects() {
     }
   }, [])
 
-  useEffect(() => {
-    if (!isTyping) return
-
-    const timer = setTimeout(() => {
-      executarFuncao()
-      setIsTyping(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [content])
+  const submitEdit = (contentd: string) => {
+    ws.send(contentd)
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value)
-    setIsTyping(true)
-  }
-  const executarFuncao = () => {
-    const ws = editProject({
-      orgSlug: slug,
-      projectSlug: project,
-    })
-
-    ws.onopen = () => {
-      ws.send(content)
-      ws.close()
-    }
+    const content = event.target.value
+    setContent(content)
+    submitEdit(content)
   }
 
   return (
