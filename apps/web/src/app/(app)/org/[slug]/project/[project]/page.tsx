@@ -4,18 +4,17 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { Textarea } from '@/components/ui/textarea'
-import { editProject } from '@/ws/edit-project'
+import useProject from '@/hooks/use-project'
 
 export default function Projects() {
   const [content, setContent] = useState<string>('')
 
-  const { project, slug } = useParams<{
-    slug: string
-    project: string
-  }>()
+  const { project, slug } = useParams<{ slug: string; project: string }>()
+
+  const ws = useProject({ orgSlug: slug, projectSlug: project })
 
   useEffect(() => {
-    const ws = editProject({ orgSlug: slug, projectSlug: project })
+    if (!ws) return
 
     const handleMessage = (event: MessageEvent) => {
       setContent(event.data)
@@ -25,19 +24,13 @@ export default function Projects() {
 
     return () => {
       ws.removeEventListener('message', handleMessage)
-      ws.close()
     }
-  }, [slug, project])
+  }, [ws])
 
   const submitEdit = (content: string) => {
-    const ws = editProject({ orgSlug: slug, projectSlug: project })
-
-    ws.addEventListener('open', () => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(content)
-      ws.close()
-    })
-
-    return () => ws.removeEventListener('open', () => {})
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

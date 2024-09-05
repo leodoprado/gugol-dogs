@@ -1,22 +1,18 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import { WebSocket } from 'ws'
 import { z } from 'zod'
 
-import { getProject } from '@/cache/projects/get-project'
-import { setProject } from '@/cache/projects/set-project'
+import { extractToken } from '@/utils/extract-token-ws'
 import {
-  addClientToProject,
-  getClientsByProject,
-  removeClientFromProject,
+  desconnectUserFromProject,
+  updateProject,
+  userConnect,
 } from '@/ws/project-connections'
-
-import { auth } from '../../middlewares/auth'
 
 export async function editProject(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
-    .register(auth)
+
     .get(
       '/organizations/:orgSlug/projects/:projectSlug/edit',
       {
@@ -32,27 +28,46 @@ export async function editProject(app: FastifyInstance) {
         },
       },
       async (connection, request) => {
+        const { sub: userId } = app.jwt.verify<{ sub: string }>(
+          extractToken(request.headers.cookie),
+        )
+
         const { projectSlug } = request.params
-
-        addClientToProject(projectSlug, connection)
-
-        const project = (await getProject(projectSlug)) || ''
-
-        connection.send(project)
-
-        connection.on('message', async (message: string) => {
-          await setProject(projectSlug, message.toString())
-          const clients = getClientsByProject(projectSlug)
-          if (!clients) return
-          for (const client of clients) {
-            if (client !== connection && client.readyState === WebSocket.OPEN) {
-              client.send(message.toString())
-            }
-          }
+        // Quando o usuário se connectar no websocket
+        userConnect({
+          connection,
+          projectSlug,
+          userId,
         })
 
+        connection.on('message', async (message: string) => {
+          // Aqui dentro pode e deve ser feita toda lógica
+          // Quando o usuário mandar uma mensagem
+          // O websocket transmite as mensagem como string
+          // Cabe o backend transformar a mensagem em uma strutura de dados
+          // O Front manda uma mensagem, por exemplo:
+          // operation =  { type: 'insert', text: 'Hello world', pos: 3}
+          // ou
+          // operation = { type: 'delete', pos: 5, length: '4'}
+          // const message = JSON.stringfy(operation)
+          // Agora message é uma string
+
+          // No backend usamos o processo inverso:
+          // const operation JSON.parse(message)
+          // Podemos agora criar toda a lógica
+          // Por exemplo: if (operation.type == "insert") {console.log("O usuário digitou um texto")}
+
+          // Por enquanto está apenas editando o projeto para todos usuários
+          await updateProject({
+            connection,
+            projectSlug,
+            message,
+          })
+        })
+
+        // Quando o usuário se desconectar
         connection.on('close', async () => {
-          removeClientFromProject(projectSlug, connection)
+          desconnectUserFromProject(projectSlug, userId)
         })
       },
     )
