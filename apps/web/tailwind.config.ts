@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import plugin from 'tailwindcss/plugin'
 
 const config = {
   darkMode: ['class'],
@@ -75,22 +74,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    require('@tailwindcss/typography'),
-    require('tailwind-scrollbar'),
-
-    plugin(({ addUtilities }) => {
-      addUtilities({
-        '.region-drag': {
-          '-webkit-app-region': 'drag',
-        },
-        '.region-no-drag': {
-          '-webkit-app-region': 'no-drag',
-        },
-      })
-    }),
-  ],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config
 
 export default config
