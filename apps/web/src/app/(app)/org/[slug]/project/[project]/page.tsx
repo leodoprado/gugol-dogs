@@ -1,10 +1,16 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Textarea } from '@/components/ui/textarea'
 import useProject from '@/hooks/use-project'
+import { getProject } from '@/http/get-project'
+
+import { History } from './history'
 
 interface Operation {
   index: number
@@ -15,15 +21,19 @@ interface Operation {
 interface Message {
   type: string
   document?: string
-  history?: Operation[]
   operation?: Operation
 }
 
 export default function Projects() {
   const [content, setContent] = useState<string>('')
-
   const { project, slug } = useParams<{ slug: string; project: string }>()
 
+  const { data } = useQuery({
+    queryKey: ['project', project],
+    queryFn: () => {
+      return getProject(slug, project)
+    },
+  })
   const ws = useProject({ orgSlug: slug, projectSlug: project })
 
   useEffect(() => {
@@ -96,7 +106,20 @@ export default function Projects() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">{project}</h1>
+      <div className="flex justify-between">
+        <h1 className="my-auto flex text-2xl font-bold">
+          {data?.project.name}
+        </h1>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button>Histórico</Button>
+          </SheetTrigger>
+
+          <SheetContent className="w-[400px] sm:w-[540px]">
+            <History />
+          </SheetContent>
+        </Sheet>
+      </div>
       <Textarea
         value={content}
         onChange={handleChange}

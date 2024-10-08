@@ -60,17 +60,17 @@ export async function userConnect({
   userId: string
   connection: WebSocket
 }) {
+  // Banco de dados em memória para guardar os usuário conectados aos projetos
   addUserToProject(projectSlug, userId, connection)
 
+  // Busca
   const project = await prisma.project.findUnique({
     where: { slug: projectSlug },
-    include: { operations: true },
   })
 
   const initialMessage: Message = {
     type: 'init',
     document: project?.content,
-    history: project?.operations,
   }
 
   connection.send(JSON.stringify(initialMessage))
@@ -104,11 +104,11 @@ export async function updateProject({
 
   if (!users) return
   for (const user of users) {
-    console.log(user[0])
     const client = user[1]
 
     if (client !== connection && client.readyState === WebSocket.OPEN) {
       const messageToSend: Message = { type: 'operation', operation }
+
       client.send(JSON.stringify(messageToSend))
     }
   }

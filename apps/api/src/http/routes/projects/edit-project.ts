@@ -56,7 +56,7 @@ export async function editProject(app: FastifyInstance) {
           if (data.type === 'operation' && data.operation) {
             const operation = data.operation
 
-            // Aplicar operação localmente
+            // Buscar documento
             const project = await prisma.project.findUnique({
               where: { slug: projectSlug },
             })

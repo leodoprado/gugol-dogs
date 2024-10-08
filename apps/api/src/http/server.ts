@@ -40,6 +40,7 @@ import { updateOrganization } from './routes/orgs/update-organization'
 import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
 import { editProject } from './routes/projects/edit-project'
+import { getOperations } from './routes/projects/get-operations'
 import { getProject } from './routes/projects/get-project'
 import { getProjects } from './routes/projects/get-projects'
 import { getUsersByConnectProject } from './routes/projects/get-users-by-project-slug'
@@ -117,6 +118,7 @@ app.register(getPendingInvites)
 app.register(getOrganizationBilling)
 
 app.register(editProject)
+app.register(getOperations)
 
 app.register(getUsersByConnectProject)
 

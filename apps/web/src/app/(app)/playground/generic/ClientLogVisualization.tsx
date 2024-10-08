@@ -53,12 +53,12 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
 
     return (
       <p>
-        User edit{' '}
+        Edição do usuário{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.operation}
         />{' '}
-        was sent to the server.
+        foi enviado para o servidor.
       </p>
     )
   }
@@ -70,12 +70,12 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
 
     return (
       <p>
-        User edit{' '}
+        Edição do usuário{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.operation}
         />{' '}
-        was stored in buffer.
+        foi armazenado no buffer.
       </p>
     )
   }
@@ -84,7 +84,7 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
     UserEditAddedToBuffer<OpT>
   > = (logEntry) => {
     // TODO: render user edit
-    return <p>Added user edit to buffer.</p>
+    return <p>Adicionada edição de usuário ao buffer.</p>
   }
 
   const ReceivedOwnOperationVisualization: FunctionComponent<
@@ -94,7 +94,7 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
 
     return (
       <p>
-        Received acknowledgment of own operation{' '}
+        Recebeu reconhecimento de operação própria.{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.acknowledgedOperation}
@@ -111,12 +111,12 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
 
     return (
       <p>
-        Received acknowledgment of own operation{' '}
+        Recebeu reconhecimento de operação própria.{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.acknowledgedOperation}
         />{' '}
-        and sent buffer{' '}
+        e enviou buffer{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.sentBuffer}
@@ -133,12 +133,12 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
 
     return (
       <p>
-        Received operation{' '}
+        Recebeu a operação{' '}
         <OperationVisualization
           className={classes.inlineOperation}
           operation={logEntry.receivedOperation}
         />{' '}
-        from the server and immediately applied it to the document.
+        do servidor e a aplicou imediatamente ao documento.
       </p>
     )
   }
@@ -190,22 +190,22 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
       <>
         <ArrowDiagram width={140} height={140} arrows={arrows} />
         <p style={{ marginTop: '4px' }}>
-          Transformed received operation{' '}
+          Operação recebida transformada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={receivedOperation}
           />{' '}
-          against the awaited transformation{' '}
+          contra a transformação esperada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={awaitedOperation}
           />{' '}
-          resulting in{' '}
+          resultando em{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={transformedReceivedOperation}
           />{' '}
-          (applied to the editor) and a new awaited operation{' '}
+          (aplicado ao editor) e uma nova operação aguardada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={transformedAwaitedOperation}
@@ -286,27 +286,27 @@ const makeClientLogItemVisualization = <OpT extends unknown>(
       <>
         <ArrowDiagram width={245} height={145} arrows={arrows} />
         <p style={{ marginTop: '4px' }}>
-          Transformed received operation{' '}
+          Operação recebida transformada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={receivedOperation}
           />{' '}
-          first against the awaited transformation{' '}
+          primeiro contra a transformação esperada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={awaitedOperation}
           />{' '}
-          and then against the buffer{' '}
+          e então contra o buffer{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={bufferOperation}
           />{' '}
-          resulting in{' '}
+          resultando em{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={twiceTransformedReceivedOperation}
           />{' '}
-          (applied to the editor), a new awaited operation{' '}
+          (aplicado ao editor), uma nova operação aguardada{' '}
           <OperationVisualization
             className={classes.inlineOperation}
             operation={transformedAwaitedOperation}

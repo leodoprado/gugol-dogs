@@ -16,11 +16,11 @@ export function applyOperation(document: string, operation: Operation): string {
   return document
 }
 
-// Função para criar uma operação
-export function createOperation(
-  index: number,
-  chars: string,
-  type: 'insert' | 'delete',
-): Operation {
-  return { index, chars, type }
-}
+// // Função para criar uma operação
+// export function createOperation(
+//   index: number,
+//   chars: string,
+//   type: 'insert' | 'delete',
+// ): Operation {
+//   return { index, chars, type }
+// }

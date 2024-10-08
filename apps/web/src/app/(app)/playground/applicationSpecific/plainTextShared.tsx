@@ -111,4 +111,4 @@ export const renderSnapshot = (snapshot: string): React.ReactNode => (
   </span>
 )
 
-export const initialText = 'Hello World'
+export const initialText = 'As aulas do professor Marcos são ...'

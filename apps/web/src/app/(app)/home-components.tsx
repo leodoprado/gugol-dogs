@@ -1,13 +1,16 @@
 'use client'
-
 import { motion, useAnimation, useInView } from 'framer-motion'
-import { ArrowRight, Dog, Edit, Users, Zap } from 'lucide-react'
+import { ArrowRight, Edit, Users, Zap } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 
+import logoIcon from '@/assets/logo.png'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+
+import ReloadLink from './realod-link'
 
 interface FeatureCardProps {
   icon: React.ElementType
@@ -90,7 +93,7 @@ export default function Home() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <Dog size={32} className="text-white" />
+          <Image src={logoIcon} className="size-6" alt="Logo" />
           <span className="text-2xl font-bold">Gugol Dogs</span>
         </motion.div>
         <motion.div
@@ -132,8 +135,6 @@ export default function Home() {
             variants={itemVariants}
           >
             Edição em Tempo Real
-            <br />
-            Redefinida
           </motion.h1>
           <motion.p
             className="mb-8 text-2xl text-gray-400"
@@ -154,13 +155,7 @@ export default function Home() {
               <Link href="/auth/sign-in">Comece Agora</Link>
             </Button>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="transform bg-white text-black transition duration-300 hover:scale-105 hover:bg-gray-200"
-            >
-              Ver Demonstração
-            </Button>
+            <ReloadLink href="/playground">Playground</ReloadLink>
           </motion.div>
         </motion.div>
 

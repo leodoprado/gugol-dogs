@@ -222,13 +222,13 @@ export const makeClientAndSocketsVisualization = <
         <div className="relative flex h-[150px] flex-row justify-center">
           <SocketVisualization
             direction={SocketDirection.UP}
-            tooltip="Receive next operation from client"
+            tooltip="Receber a próxima operação do cliente"
             queue={state.toServer}
             onReceiveClick={onServerReceiveClick}
           />
           <SocketVisualization
             direction={SocketDirection.DOWN}
-            tooltip="Receive next operation from server"
+            tooltip="Receber a próxima operação do servidor"
             queue={state.fromServer}
             onReceiveClick={onClientReceive}
           />

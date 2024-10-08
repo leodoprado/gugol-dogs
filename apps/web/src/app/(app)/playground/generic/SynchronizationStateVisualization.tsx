@@ -24,14 +24,14 @@ export const makeSynchronizationStateVisualization =
       case SynchronizationStateStatus.SYNCHRONIZED:
         return (
           <p className="rounded-xl border px-5 py-3 leading-6">
-            {stateLabel} Synchronized at server revision{' '}
+            {stateLabel} Sincronizado na revisão do servidor{' '}
             {synchronizationState.serverRevision}
           </p>
         )
       case SynchronizationStateStatus.AWAITING_OPERATION:
         return (
           <p className="rounded-xl border px-5 py-3 leading-6">
-            {stateLabel} Awaiting operation{' '}
+            {stateLabel} Aguardando operação{' '}
             <OperationVisualization
               operation={synchronizationState.awaitedOperation}
               className="[-4px] m-0 mx-[2px] align-middle"
@@ -41,12 +41,12 @@ export const makeSynchronizationStateVisualization =
       case SynchronizationStateStatus.AWAITING_OPERATION_WITH_BUFFER:
         return (
           <p className="rounded-xl border px-5 py-3 leading-6">
-            {stateLabel} Awaiting operation{' '}
+            {stateLabel} Aguardando operação{' '}
             <OperationVisualization
               operation={synchronizationState.awaitedOperation}
               className="[-4px] m-0 mx-[2px] align-middle"
             />{' '}
-            with buffer{' '}
+            com buffer{' '}
             <OperationVisualization
               operation={synchronizationState.buffer}
               className="[-4px] m-0 mx-[2px] align-middle"
