@@ -31,8 +31,8 @@ export function History() {
     <SheetHeader>
       <SheetTitle>Histórico de operações</SheetTitle>
       <SheetDescription>
-        <ScrollArea className="h-screen">
-          <Table>
+        <Table>
+          <ScrollArea className="h-screen">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Operação</TableHead>
@@ -56,8 +56,8 @@ export function History() {
                 )
               })}
             </TableBody>
-          </Table>
-        </ScrollArea>
+          </ScrollArea>
+        </Table>
       </SheetDescription>
     </SheetHeader>
   )

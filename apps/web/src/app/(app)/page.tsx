@@ -1,14 +1,20 @@
-import { redirect } from 'next/navigation'
-
 import { isAuthenticated } from '@/auth/auth'
-import { getOrganizations } from '@/http/get-organizations'
+import { Header } from '@/components/header'
 
 import Home from './home-components'
 
 export default async function HomePage() {
   if (isAuthenticated()) {
-    const { organizations } = await getOrganizations()
-    redirect(`/org/${organizations[0].slug}`)
+    return (
+      <div className="space-y-4 py-5">
+        <Header />
+        <main className="mx-auto w-full max-w-[1200px] space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Select an organization
+          </p>
+        </main>
+      </div>
+    )
   }
   return <Home />
 }

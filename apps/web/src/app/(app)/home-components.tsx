@@ -66,19 +66,19 @@ export default function Home() {
     {
       icon: Edit,
       title: 'Edição Colaborativa',
-      description:
+      content:
         'Veja as mudanças instantaneamente, como se estivesse ao lado do seu colega.',
     },
     {
       icon: Users,
       title: 'Gestão de Equipe',
-      description:
+      content:
         'Organize sua equipe com facilidade e mantenha todos sincronizados.',
     },
     {
       icon: Zap,
       title: 'Velocidade Incomparável',
-      description:
+      content:
         'Nosso sistema garante que você nunca perca o ritmo do trabalho.',
     },
   ]

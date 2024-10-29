@@ -52,6 +52,21 @@ export default function Projects() {
   }, [ws])
 
   // Função para aplicar operações de outros clientes
+  // const applyRemoteOperation = (operation: Operation) => {
+  //   const { index, chars, type } = operation
+
+  //   setContent((prevDoc) => {
+  //     if (type === 'insert') {
+  //       // Código de inserção
+  //     } else if (type === 'delete') {
+  //       // Código da deleção
+  //     }
+  //     return prevDoc
+  //   })
+  // }
+
+  // Função para aplicar operações de outros clientes
+
   const applyRemoteOperation = (operation: Operation) => {
     const { index, chars, type } = operation
     setContent((prevDoc) => {
